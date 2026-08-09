@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-manrope), sans-serif;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-syne), sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background-color: #E11D48;
+    color: #FFFFFF;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent text-white font-heading font-semibold px-8 py-3 rounded-lg
+           transition-all duration-200 hover:bg-blue-700 hover:shadow-lg
+           active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent text-foreground font-heading font-semibold px-8 py-3 rounded-lg
+           border-2 border-foreground transition-all duration-200
+           hover:bg-foreground hover:text-background
+           active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2;
+  }
+
+  .btn-accent-outline {
+    @apply bg-transparent text-white font-heading font-semibold px-8 py-3 rounded-lg
+           border-2 border-white transition-all duration-200
+           hover:bg-white hover:text-accent
+           active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2;
+  }
+
+  .section-padding {
+    @apply px-6 md:px-12 lg:px-24 xl:px-32 py-20 md:py-28;
+  }
+
+  .container-narrow {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-card overflow-hidden
+           transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-caption font-semibold;
+  }
+
+  .badge-new {
+    @apply badge bg-primary text-on-primary;
+  }
+
+  .badge-sale {
+    @apply badge bg-warm-clay text-white;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-white/20;
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-muted rounded-lg;
+  }
+}
