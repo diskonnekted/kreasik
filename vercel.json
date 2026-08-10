@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/admin/:path*",
+      "destination": "/admin/:path*"
+    },
+    {
+      "source": "/studio/:path*",
+      "destination": "/studio/:path*"
+    }
+  ]
+}
