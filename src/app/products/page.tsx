@@ -452,18 +452,19 @@ export default function ProductsPage() {
     <>
       <Navbar />
       <div className="min-h-screen bg-background pt-20">
-        <div className="container-narrow mx-auto px-6 md:px-12 lg:px-24 xl:px-32 py-8">
-          {/* Page Header */}
-          <div className="mb-8">
-            <h1 className="font-heading font-bold text-heading-lg md:text-heading-xl mb-2">
-              Semua Produk
-            </h1>
-            <p className="text-body text-foreground/60">
-              Temuin produk unik & kreatif yang kamu cari
-            </p>
-          </div>
+        {/* Hero - Full width on mobile */}
+        <div className="container-narrow mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+          <h1 className="font-heading font-bold text-heading-md md:text-heading-lg mb-2">
+            Semua Produk
+          </h1>
+          <p className="text-body text-foreground/60">
+            Temuin produk unik & kreatif yang kamu cari
+          </p>
+        </div>
 
-          <div className="flex gap-8">
+        {/* Main Content - Full width on mobile */}
+        <div className="container-narrow mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+          <div className="flex flex-col lg:flex-row gap-6">
             {/* Sidebar Filters - Desktop */}
             <aside className="hidden lg:block w-64 flex-shrink-0">
               <div className="sticky top-24 bg-white rounded-xl p-6 shadow-card space-y-6">
