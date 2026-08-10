@@ -1,0 +1,20 @@
+{
+  "name": "Kreasik Studio",
+  "short_name": "Kreasik",
+  "start_url": "/studio",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f0e6d3",
+  "icons": [
+    {
+      "src": "/studio/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/studio/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
