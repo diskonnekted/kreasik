@@ -16,5 +16,17 @@
       "source": "/studio/:path*",
       "destination": "/studio/index.html"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/admin",
+      "destination": "/admin/",
+      "permanent": false
+    },
+    {
+      "source": "/studio",
+      "destination": "/studio/",
+      "permanent": false
+    }
   ]
 }
