@@ -1,19 +1,19 @@
 import type { Metadata } from 'next'
-import { Syne, Manrope } from 'next/font/google'
+import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/context/CartContext'
 
-const syne = Syne({
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-syne',
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-playfair',
   display: 'swap',
 })
 
-const manrope = Manrope({
+const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-manrope',
+  variable: '--font-inter',
   display: 'swap',
 })
 
@@ -29,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${syne.variable} ${manrope.variable}`}>
-      <body className="font-[family-name:var(--font-manrope)]">
+    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+      <body className="font-[family-name:var(--font-inter)]">
         <CartProvider>{children}</CartProvider>
       </body>
     </html>
