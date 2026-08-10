@@ -1,12 +1,20 @@
 {
   "rewrites": [
     {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
       "source": "/admin/:path*",
-      "destination": "/admin/:path*"
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/studio",
+      "destination": "/studio/index.html"
     },
     {
       "source": "/studio/:path*",
-      "destination": "/studio/:path*"
+      "destination": "/studio/index.html"
     }
   ]
 }
