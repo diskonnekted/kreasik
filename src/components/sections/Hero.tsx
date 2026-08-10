@@ -64,7 +64,7 @@ export default function Hero() {
             >
               <span className="inline-flex items-center gap-2 badge-new mb-6">
               <Sparkles size={14} />
-              Custom 3D Figur - Foto Asli Anda
+              Percetakan & Digital Printing Banjarnegara
             </span>
           </motion.div>
 
@@ -76,8 +76,8 @@ export default function Hero() {
               viewport={{ once: true, margin: '-100px' }}
               className="font-heading font-bold text-heading-xl md:text-[56px] lg:text-heading-xl leading-tight md:leading-tight text-foreground mb-6"
             >
-              Unik & Eksklusif.{' '}
-              <span className="text-gradient">Dibuat Khusus Untukmu.</span>
+              Cetak & Sablon Berkualitas di{' '}
+              <span className="text-gradient">Banjarnegara</span>
             </motion.h1>
 
             <motion.p
@@ -88,7 +88,7 @@ export default function Hero() {
               viewport={{ once: true, margin: '-100px' }}
               className="text-body-lg md:text-body text-foreground/70 max-w-lg mb-10 leading-relaxed"
             >
-              Temukan koleksi patung resin premium dan apparel custom dengan desain unik. Setiap produk dibuat dengan detail sempurna dan kualitas terbaik untuk menemani ruang favoritmu.
+              Jasa percetakan, digital printing, dan sablon untuk kebutuhan dokumen, banner, spanduk, dan produk custom seperti mug, tumbler, dan merchandise.
             </motion.p>
 
             <motion.div

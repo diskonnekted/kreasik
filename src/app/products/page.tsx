@@ -363,6 +363,9 @@ export default function ProductsPage() {
   const [showFilters, setShowFilters] = useState(false)
   const [likedProducts, setLikedProducts] = useState<Set<number>>(new Set())
   const [currentPage, setCurrentPage] = useState(1)
+  const [selectedBadges, setSelectedBadges] = useState<string[]>([])
+  const [minRating, setMinRating] = useState(0)
+  const [hasVariantsOnly, setHasVariantsOnly] = useState(false)
   const { addItem } = useCart()
 
   const toggleLike = (id: number) => {
@@ -374,6 +377,12 @@ export default function ProductsPage() {
     })
   }
 
+  const toggleBadge = (badge: string) => {
+    setSelectedBadges((prev) =>
+      prev.includes(badge) ? prev.filter(b => b !== badge) : [...prev, badge]
+    )
+  }
+
   const filteredProducts = useMemo(() => {
     let result = products.filter((p) => {
       const matchCategory = selectedCategory === 'all' || p.category === selectedCategory
@@ -382,7 +391,10 @@ export default function ProductsPage() {
         searchQuery === '' ||
         p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.description.toLowerCase().includes(searchQuery.toLowerCase())
-      return matchCategory && matchPrice && matchSearch
+      const matchBadge = selectedBadges.length === 0 || (p.badge ? selectedBadges.includes(p.badge) : selectedBadges.includes('all'))
+      const matchRating = p.rating >= minRating
+      const matchVariants = !hasVariantsOnly || p.variations !== undefined
+      return matchCategory && matchPrice && matchSearch && matchBadge && matchRating && matchVariants
     })
 
     switch (sortBy) {
@@ -400,7 +412,7 @@ export default function ProductsPage() {
     }
 
     return result
-  }, [selectedCategory, priceRange, sortBy, searchQuery])
+  }, [selectedCategory, priceRange, sortBy, searchQuery, selectedBadges, minRating, hasVariantsOnly])
 
   // Pagination logic
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE)
@@ -429,9 +441,12 @@ export default function ProductsPage() {
     setPriceRange([0, 500000])
     setSortBy('newest')
     setSearchQuery('')
+    setSelectedBadges([])
+    setMinRating(0)
+    setHasVariantsOnly(false)
   }
 
-  const hasActiveFilters = selectedCategory !== 'all' || priceRange[1] < 500000 || searchQuery !== ''
+  const hasActiveFilters = selectedCategory !== 'all' || priceRange[1] < 500000 || searchQuery !== '' || selectedBadges.length > 0 || minRating > 0 || hasVariantsOnly
 
   return (
     <>
@@ -467,6 +482,18 @@ export default function ProductsPage() {
                   )}
                 </div>
 
+                {/* Search */}
+                <div>
+                  <h4 className="font-heading font-semibold text-body-sm mb-3">Cari Produk</h4>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setCurrentPage(1)}
+                    placeholder="Cari produk..."
+                    className="w-full px-3 py-2.5 rounded-lg border bg-background text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
                 {/* Category Filter */}
                 <div>
                   <h4 className="font-heading font-semibold text-body-sm mb-3">Kategori</h4>
@@ -498,30 +525,99 @@ export default function ProductsPage() {
 
                 {/* Price Range */}
                 <div>
-                  <h4 className="font-heading font-semibold text-body-sm mb-3">Rentang Harga</h4>
+                  <h4 className="font-heading font-semibold text-body-sm mb-3">Harga Maks</h4>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="range"
-                        min="0"
-                        max="500000"
-                        step="10000"
-                        value={priceRange[1]}
-                        onChange={(e) =>
-                          setPriceRange([priceRange[0], parseInt(e.target.value)])
-                        }
-                        className="flex-1 accent-primary"
-                      />
-                      <span className="text-caption text-foreground/60 whitespace-nowrap">
-                        {formatCurrency(priceRange[1])}
-                      </span>
-                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="500000"
+                      step="10000"
+                      value={priceRange[1]}
+                      onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+                      className="w-full accent-primary"
+                    />
                     <div className="flex items-center justify-between text-caption text-foreground/50 bg-muted px-3 py-2 rounded">
                       <span>{formatCurrency(priceRange[0])}</span>
                       <span>—</span>
                       <span>{formatCurrency(priceRange[1])}</span>
                     </div>
                   </div>
+                </div>
+
+                {/* Badge Filter */}
+                <div>
+                  <h4 className="font-heading font-semibold text-body-sm mb-3">Tipe</h4>
+                  <div className="space-y-2">
+                    <label className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-muted transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={selectedBadges.includes('NEW')}
+                        onChange={() => toggleBadge('NEW')}
+                        className="accent-primary"
+                      />
+                      <span className="text-body-sm">🆕 NEW</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-muted transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={selectedBadges.includes('SALE')}
+                        onChange={() => toggleBadge('SALE')}
+                        className="accent-primary"
+                      />
+                      <span className="text-body-sm">🏷️ SALE</span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Rating Filter */}
+                <div>
+                  <h4 className="font-heading font-semibold text-body-sm mb-3">Rating Minimal</h4>
+                  <div className="space-y-2">
+                    {[1, 2, 3, 4, 5].map((rating) => (
+                      <label key={rating} className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-muted transition-colors">
+                        <input
+                          type="radio"
+                          name="rating"
+                          checked={minRating === rating}
+                          onChange={() => setMinRating(rating)}
+                          className="accent-primary"
+                        />
+                        <div className="flex">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              size={12}
+                              className={i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}
+                            />
+                          ))}
+                        </div>
+                        <span className="text-caption text-foreground/50">& up</span>
+                      </label>
+                    ))}
+                    <label className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-muted transition-colors">
+                      <input
+                        type="radio"
+                        name="rating"
+                        checked={minRating === 0}
+                        onChange={() => setMinRating(0)}
+                        className="accent-primary"
+                      />
+                      <span className="text-body-sm">Semua Rating</span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Variants Filter */}
+                <div>
+                  <label className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-muted transition-colors">
+                    <input
+                      type="checkbox"
+                      checked={hasVariantsOnly}
+                      onChange={() => setHasVariantsOnly(!hasVariantsOnly)}
+                      className="accent-primary"
+                    />
+                    <span className="text-body-sm">Hanya produk dengan variasi</span>
+                  </label>
                 </div>
               </div>
             </aside>
@@ -552,7 +648,7 @@ export default function ProductsPage() {
                         <input
                           type="text"
                           value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onChange={(e) => setCurrentPage(1)}
                           placeholder="Cari nama atau deskripsi..."
                           className="w-full px-3 py-2.5 rounded-lg border bg-background text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
                         />
@@ -588,15 +684,73 @@ export default function ProductsPage() {
                             max="500000"
                             step="10000"
                             value={priceRange[1]}
-                            onChange={(e) =>
-                              setPriceRange([priceRange[0], parseInt(e.target.value)])
-                            }
+                            onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
                             className="w-full accent-primary"
                           />
                           <p className="text-caption text-foreground/60 text-center">
                             {formatCurrency(priceRange[1])}
                           </p>
                         </div>
+                      </div>
+
+                      {/* Badge Filter */}
+                      <div>
+                        <h4 className="font-heading font-semibold text-body-sm mb-3">Tipe</h4>
+                        <div className="flex flex-wrap gap-2">
+                          <button
+                            onClick={() => toggleBadge('NEW')}
+                            className={`px-3 py-2 rounded-lg text-body-sm transition-colors ${
+                              selectedBadges.includes('NEW')
+                                ? 'bg-primary text-white'
+                                : 'bg-muted hover:bg-muted/80'
+                            }`}
+                          >
+                            🆕 NEW
+                          </button>
+                          <button
+                            onClick={() => toggleBadge('SALE')}
+                            className={`px-3 py-2 rounded-lg text-body-sm transition-colors ${
+                              selectedBadges.includes('SALE')
+                                ? 'bg-primary text-white'
+                                : 'bg-muted hover:bg-muted/80'
+                            }`}
+                          >
+                            🏷️ SALE
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Rating Filter */}
+                      <div>
+                        <h4 className="font-heading font-semibold text-body-sm mb-3">Rating Minimal</h4>
+                        <div className="flex gap-2">
+                          {[0, 1, 2, 3, 4, 5].map((rating) => (
+                            <button
+                              key={rating}
+                              onClick={() => setMinRating(rating)}
+                              className={`px-3 py-2 rounded-lg text-body-sm font-heading transition-colors ${
+                                minRating === rating
+                                  ? 'bg-primary text-white'
+                                  : 'bg-muted hover:bg-muted/80'
+                              }`}
+                            >
+                              {rating === 0 ? 'Semua' : `${rating}+`}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Variants Filter */}
+                      <div>
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={hasVariantsOnly}
+                            onChange={() => setHasVariantsOnly(!hasVariantsOnly)}
+                            className="accent-primary"
+                          />
+                          <span className="text-body-sm">Hanya produk dengan variasi</span>
+                        </label>
                       </div>
 
                       {/* Sort */}
@@ -632,12 +786,75 @@ export default function ProductsPage() {
 
             {/* Products Grid */}
             <div className="flex-1">
+              {/* Active Filter Tags */}
+              {hasActiveFilters && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {selectedCategory !== 'all' && (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary/10 text-primary text-caption font-semibold">
+                      {categories.find(c => c.id === selectedCategory)?.label}
+                      <button onClick={() => setSelectedCategory('all')} className="hover:text-destructive">
+                        <X size={12} />
+                      </button>
+                    </span>
+                  )}
+                  {priceRange[1] < 500000 && (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-accent/10 text-accent text-caption font-semibold">
+                      Max {formatCurrency(priceRange[1])}
+                      <button onClick={() => setPriceRange([0, 500000])} className="hover:text-destructive">
+                        <X size={12} />
+                      </button>
+                    </span>
+                  )}
+                  {searchQuery && (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-secondary/10 text-secondary text-caption font-semibold">
+                      "{searchQuery}"
+                      <button onClick={() => setSearchQuery('')} className="hover:text-destructive">
+                        <X size={12} />
+                      </button>
+                    </span>
+                  )}
+                  {selectedBadges.map(badge => (
+                    <span key={badge} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-success/10 text-success text-caption font-semibold">
+                      {badge}
+                      <button onClick={() => toggleBadge(badge)} className="hover:text-destructive">
+                        <X size={12} />
+                      </button>
+                    </span>
+                  ))}
+                  {minRating > 0 && (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-warning/10 text-warning text-caption font-semibold">
+                      {'⭐'.repeat(minRating)} & up
+                      <button onClick={() => setMinRating(0)} className="hover:text-destructive">
+                        <X size={12} />
+                      </button>
+                    </span>
+                  )}
+                  {hasVariantsOnly && (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-info/10 text-info text-caption font-semibold">
+                      Dengan Variasi
+                      <button onClick={() => setHasVariantsOnly(false)} className="hover:text-destructive">
+                        <X size={12} />
+                      </button>
+                    </span>
+                  )}
+                </div>
+              )}
+
               {/* Sort & Count - Desktop */}
               <div className="hidden lg:flex items-center justify-between mb-6">
-                <p className="text-body-sm text-foreground/60">
+                <div className="flex-1 max-w-sm">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setCurrentPage(1)}
+                    placeholder="Cari produk..."
+                    className="w-full px-3 py-2 rounded-lg border bg-background text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+                <p className="text-body-sm text-foreground/60 ml-6">
                   Menampilkan <span className="font-semibold text-foreground">{paginatedProducts.length}</span> dari <span className="font-semibold text-foreground">{filteredProducts.length}</span> produk
                 </p>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 ml-6">
                   <span className="text-body-sm text-foreground/60">Urutkan:</span>
                   <select
                     value={sortBy}
@@ -651,6 +868,13 @@ export default function ProductsPage() {
                     ))}
                   </select>
                 </div>
+              </div>
+
+              {/* Sort & Count - Mobile (when filters closed) */}
+              <div className="lg:hidden mb-4 flex items-center justify-between">
+                <p className="text-body-sm text-foreground/60">
+                  Menampilkan <span className="font-semibold text-foreground">{paginatedProducts.length}</span> dari <span className="font-semibold text-foreground">{filteredProducts.length}</span> produk
+                </p>
               </div>
 
               {/* Products */}

@@ -18,9 +18,9 @@ const manrope = Manrope({
 })
 
 export const metadata: Metadata = {
-  title: 'Kreasik — 3D Print & Kerajinan DIY Keren',
-  description: 'Temuin produk unik hasil karya tangan + teknologi 3D printing. Vas, kaos custom, kerajinan tangan, dan banyak lagi.',
-  keywords: ['3D print', 'DIY', 'kerajinan tangan', 'fashion', 'produk unik', 'vase'],
+  title: 'Kreasik Production — Percetakan & Digital Printing Banjarnegara',
+  description: 'Jasa percetakan, digital printing, dan sablon di Banjarnegara. Cetak dokumen, banner, spanduk, dan produk custom mug, tumbler. Jl. S. Parman, Parakancanggah.',
+  keywords: ['percetakan banjarnegara', 'digital printing', 'sablon', 'cetak banner', 'cetak mug', 'kreasik production'],
 }
 
 export default function RootLayout({

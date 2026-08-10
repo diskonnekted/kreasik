@@ -9,9 +9,7 @@ import { useCart } from '@/context/CartContext'
 const navItems = [
   { label: 'Beranda', href: '/' },
   { label: 'Toko', href: '/products' },
-  { label: '3D Print', href: '/products?category=3d-print' },
-  { label: 'Apparel', href: '/products?category=apparel' },
-  { label: 'DIY', href: '/products?category=diy' },
+  { label: 'Tentang', href: '/#about' },
 ]
 
 export default function Navbar() {

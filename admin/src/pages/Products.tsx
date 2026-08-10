@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Package, Plus, Edit, Trash2, Search, X, Save, Camera, Check } from 'lucide-react'
+import { Package, Plus, Edit, Trash2, Search, X, Save, Camera, Check, SlidersHorizontal, Filter } from 'lucide-react'
 import { getProducts, saveProducts } from '../utils/storage'
 import { Product } from '../types'
 import { formatCurrency } from '../components/ui'
@@ -7,6 +7,12 @@ import { formatCurrency } from '../components/ui'
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
   const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedBadge, setSelectedBadge] = useState<string>('all')
+  const [stockFilter, setStockFilter] = useState<string>('all')
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000])
+  const [sortBy, setSortBy] = useState<string>('name-asc')
+  const [showFilters, setShowFilters] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null)
@@ -15,12 +21,50 @@ export default function ProductsPage() {
     setProducts(getProducts())
   }, [])
 
-  const filteredProducts = products.filter(
-    (p) =>
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.slug.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.category.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const categories = ['all', '3d-print', 'apparel', 'diy', 'print', 'junkyard']
+  const badges = ['all', 'NEW', 'HOT', 'SALE']
+
+  const filteredProducts = products
+    .filter((p) => {
+      const matchSearch =
+        searchQuery === '' ||
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.slug.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.category.toLowerCase().includes(searchQuery.toLowerCase())
+      const matchCategory = selectedCategory === 'all' || p.category === selectedCategory
+      const matchBadge = selectedBadge === 'all' || p.badge === selectedBadge
+      const matchStock =
+        stockFilter === 'all' ||
+        (stockFilter === 'in-stock' && p.stock > 10) ||
+        (stockFilter === 'low-stock' && p.stock > 0 && p.stock <= 10) ||
+        (stockFilter === 'out-of-stock' && p.stock === 0)
+      const matchPrice = p.price >= priceRange[0] && p.price <= priceRange[1]
+      return matchSearch && matchCategory && matchBadge && matchStock && matchPrice
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'name-asc': return a.name.localeCompare(b.name)
+        case 'name-desc': return b.name.localeCompare(a.name)
+        case 'price-asc': return a.price - b.price
+        case 'price-desc': return b.price - a.price
+        case 'stock-asc': return a.stock - b.stock
+        case 'stock-desc': return b.stock - a.stock
+        case 'date-desc': return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        case 'date-asc': return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        default: return 0
+      }
+    })
+
+  const hasActiveFilters = selectedCategory !== 'all' || selectedBadge !== 'all' || stockFilter !== 'all' || priceRange[1] < 500000 || searchQuery !== ''
+
+  const clearFilters = () => {
+    setSearchQuery('')
+    setSelectedCategory('all')
+    setSelectedBadge('all')
+    setStockFilter('all')
+    setPriceRange([0, 500000])
+    setSortBy('name-asc')
+  }
 
   const handleSave = (product: Product) => {
     if (editingProduct) {
@@ -46,23 +90,173 @@ export default function ProductsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="font-heading font-bold text-heading-sm text-foreground">Manajemen Produk</h1>
-          <p className="text-body-sm text-foreground/50 mt-1">Kelola semua produk Anda</p>
+          <p className="text-body-sm text-foreground/50 mt-1">Kelola semua produk Anda ({filteredProducts.length} produk)</p>
         </div>
-        <button
-          onClick={() => {
-            setEditingProduct(null)
-            setShowModal(true)
-          }}
-          className="flex items-center gap-2 bg-primary text-white font-heading font-semibold px-5 py-2.5 rounded-lg
-                   hover:bg-primary/90 transition-colors active:scale-[0.98] self-start"
-        >
-          <Plus size={18} />
-          Tambah Produk
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="flex items-center gap-2 bg-white border text-body-sm font-heading font-semibold px-4 py-2.5 rounded-lg
+                     hover:bg-muted transition-colors lg:hidden"
+          >
+            <Filter size={16} />
+            Filter
+          </button>
+          <button
+            onClick={() => {
+              setEditingProduct(null)
+              setShowModal(true)
+            }}
+            className="flex items-center gap-2 bg-primary text-white font-heading font-semibold px-5 py-2.5 rounded-lg
+                     hover:bg-primary/90 transition-colors active:scale-[0.98] self-start"
+          >
+            <Plus size={18} />
+            Tambah Produk
+          </button>
+        </div>
       </div>
 
-      {/* Search */}
-      <div className="relative">
+      {/* Filter Panel */}
+      <div className={`${showFilters ? 'block' : 'hidden'} lg:block`}>
+        <div className="bg-white rounded-xl shadow-card p-4 space-y-4">
+          {/* Search & Sort Row */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex-1 relative">
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/30" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Cari produk..."
+                className="w-full pl-9 pr-4 py-2 rounded-lg border bg-background text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="px-3 py-2 rounded-lg border bg-background text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              <option value="name-asc">Nama A-Z</option>
+              <option value="name-desc">Nama Z-A</option>
+              <option value="price-asc">Harga Termurah</option>
+              <option value="price-desc">Harga Tertinggi</option>
+              <option value="stock-asc">Stok Terbanyak</option>
+              <option value="stock-desc">Stok Terbanyak</option>
+              <option value="date-desc">Terbaru</option>
+              <option value="date-asc">Terlama</option>
+            </select>
+          </div>
+
+          {/* Filter Row */}
+          <div className="flex flex-wrap gap-3">
+            {/* Category Filter */}
+            <div className="flex-1 min-w-[150px]">
+              <label className="block text-caption text-foreground/50 mb-1">Kategori</label>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg border bg-background text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                {categories.map(cat => (
+                  <option key={cat} value={cat}>
+                    {cat === 'all' ? 'Semua' : cat.charAt(0).toUpperCase() + cat.slice(1).replace('-', ' ')}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Badge Filter */}
+            <div className="flex-1 min-w-[150px]">
+              <label className="block text-caption text-foreground/50 mb-1">Badge</label>
+              <select
+                value={selectedBadge}
+                onChange={(e) => setSelectedBadge(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg border bg-background text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                {badges.map(badge => (
+                  <option key={badge} value={badge}>
+                    {badge === 'all' ? 'Semua' : badge}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Stock Filter */}
+            <div className="flex-1 min-w-[150px]">
+              <label className="block text-caption text-foreground/50 mb-1">Stok</label>
+              <select
+                value={stockFilter}
+                onChange={(e) => setStockFilter(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg border bg-background text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="all">Semua Stok</option>
+                <option value="in-stock">In Stock (&gt;10)</option>
+                <option value="low-stock">Low Stock (1-10)</option>
+                <option value="out-of-stock">Out of Stock</option>
+              </select>
+            </div>
+
+            {/* Price Range */}
+            <div className="flex-1 min-w-[200px]">
+              <label className="block text-caption text-foreground/50 mb-1">Harga Maks: {formatCurrency(priceRange[1])}</label>
+              <input
+                type="range"
+                min="0"
+                max="500000"
+                step="10000"
+                value={priceRange[1]}
+                onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+                className="w-full accent-primary"
+              />
+            </div>
+
+            {/* Clear Filters */}
+            {hasActiveFilters && (
+              <div className="flex items-end">
+                <button
+                  onClick={clearFilters}
+                  className="flex items-center gap-1 px-3 py-2 rounded-lg border text-body-sm text-foreground/60 hover:bg-muted transition-colors"
+                >
+                  <X size={14} />
+                  Reset
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Active Filter Tags */}
+          {hasActiveFilters && (
+            <div className="flex flex-wrap gap-2 pt-2 border-t border-border">
+              {selectedCategory !== 'all' && (
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 text-primary text-caption">
+                  {selectedCategory}
+                  <button onClick={() => setSelectedCategory('all')} className="hover:text-destructive"><X size={10} /></button>
+                </span>
+              )}
+              {selectedBadge !== 'all' && (
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-accent/10 text-accent text-caption">
+                  {selectedBadge}
+                  <button onClick={() => setSelectedBadge('all')} className="hover:text-destructive"><X size={10} /></button>
+                </span>
+              )}
+              {stockFilter !== 'all' && (
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-success/10 text-success text-caption">
+                  {stockFilter === 'in-stock' ? 'In Stock' : stockFilter === 'low-stock' ? 'Low Stock' : 'Out of Stock'}
+                  <button onClick={() => setStockFilter('all')} className="hover:text-destructive"><X size={10} /></button>
+                </span>
+              )}
+              {priceRange[1] < 500000 && (
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-warning/10 text-warning text-caption">
+                  ≤ {formatCurrency(priceRange[1])}
+                  <button onClick={() => setPriceRange([0, 500000])} className="hover:text-destructive"><X size={10} /></button>
+                </span>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Search - Desktop only (when filters closed on mobile) */}
+      <div className="hidden lg:relative">
         <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/30" />
         <input
           type="text"

@@ -1,9 +1,28 @@
 import { Instagram, Youtube, Music, Mail, MapPin, Phone } from 'lucide-react'
+import Link from 'next/link'
 
 const footerLinks = {
-  shop: ['Semua Produk', '3D Print', 'Apparel', 'DIY Crafts', 'Gift Card'],
-  support: ['Hubungi Kami', 'FAQ', 'Info Pengiriman', 'Pengembalian', 'Lacak Pesanan'],
-  company: ['Tentang Kami', 'Cerita Kami', 'Karir', 'Wholesale', 'Pers'],
+  shop: [
+    { label: 'Semua Produk', href: '/products' },
+    { label: '3D Print', href: '/products?category=3d-print' },
+    { label: 'Apparel', href: '/products?category=apparel' },
+    { label: 'DIY Crafts', href: '/products?category=diy' },
+    { label: 'Gift Card', href: '/gift-card' },
+  ],
+  support: [
+    { label: 'Hubungi Kami', href: '/contact' },
+    { label: 'FAQ', href: '/faq' },
+    { label: 'Info Pengiriman', href: '/shipping' },
+    { label: 'Pengembalian', href: '/returns' },
+    { label: 'Lacak Pesanan', href: '/track-order' },
+  ],
+  company: [
+    { label: 'Tentang Kami', href: '/about' },
+    { label: 'Cerita Kami', href: '/about' },
+    { label: 'Karir', href: '/about' },
+    { label: 'Wholesale', href: '/contact' },
+    { label: 'Pers', href: '/contact' },
+  ],
 }
 
 export default function Footer() {
@@ -14,9 +33,19 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <h3 className="font-heading font-bold text-2xl text-white mb-4">KREASIK</h3>
-            <p className="text-body-sm leading-relaxed mb-6">
-              Produk kerajinan kreatif yang menggabungkan teknik tradisional dengan teknologi 3D printing modern.
+            <p className="text-body-sm leading-relaxed mb-4">
+              Jasa percetakan, digital printing, dan sablon di Banjarnegara.
             </p>
+            <div className="space-y-2 text-body-sm mb-4">
+              <div className="flex items-start gap-2">
+                <MapPin size={14} className="mt-0.5 flex-shrink-0 text-white/60" />
+                <span>Jl. S. Parman, Parakancanggah, Banjarnegara 53412</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone size={14} className="flex-shrink-0 text-white/60" />
+                <a href="tel:085137525599" className="hover:text-white transition-colors">0851-3752-5599</a>
+              </div>
+            </div>
             <div className="flex gap-4">
               <a href="#" className="p-2 hover:bg-white/10 rounded-full transition-colors" aria-label="Instagram">
                 <Instagram size={20} />
@@ -36,10 +65,10 @@ export default function Footer() {
               <h4 className="font-heading font-semibold text-white mb-4 capitalize">{title}</h4>
               <ul className="space-y-2">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-body-sm hover:text-white transition-colors">
-                      {link}
-                    </a>
+                  <li key={link.label}>
+                    <Link href={link.href} className="text-body-sm hover:text-white transition-colors">
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -53,8 +82,8 @@ export default function Footer() {
             &copy; 2025 Kreasik. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-caption hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="text-caption hover:text-white transition-colors">Terms of Service</a>
+            <Link href="/privacy" className="text-caption hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-caption hover:text-white transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
