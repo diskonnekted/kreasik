@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Heart, ShoppingBag, Star, Minus, Plus, Truck, Shield, RefreshCw, Check } from 'lucide-react'
+import { ArrowLeft, Heart, ShoppingBag, Star, Minus, Plus, Truck, Shield, RefreshCw, Check, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -566,7 +566,7 @@ export default function ProductDetail({ params }: { params: { slug: string } }) 
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-3 mb-8">
+              <div className="flex flex-col sm:flex-row gap-3 mb-8">
                 <button
                   onClick={() => {
                     addItem({
@@ -593,6 +593,24 @@ export default function ProductDetail({ params }: { params: { slug: string } }) 
                   <Heart size={20} fill={liked ? 'currentColor' : 'none'} />
                 </button>
               </div>
+
+              {/* WhatsApp Quick Order */}
+              <a
+                href={`https://wa.me/6285137525599?text=${encodeURIComponent(
+                  `Halo Kreasik! Saya ingin pesan:\n\n` +
+                  `*Produk:* ${product.name}\n` +
+                  `*Harga:* ${formatCurrency(getVariantPrice())}\n` +
+                  `*Jumlah:* ${quantity}\n` +
+                  `*Total:* ${formatCurrency(totalPrice)}\n\n` +
+                  `Mohon info lebih lanjut. Terima kasih!`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg border-2 border-success bg-success/5 text-success font-heading font-semibold hover:bg-success hover:text-white transition-colors mb-8"
+              >
+                <MessageCircle size={20} />
+                Pesan Cepat via WhatsApp
+              </a>
 
               {/* Features */}
               <div className="grid grid-cols-3 gap-4 mb-8">
