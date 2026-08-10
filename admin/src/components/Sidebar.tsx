@@ -54,11 +54,11 @@ export default function Sidebar({ collapsed, setCollapsed }: { collapsed: boolea
       >
         {/* Logo */}
         <div className="p-5 border-b border-border flex items-center gap-3">
-          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-heading font-bold text-lg">K</span>
+          <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md">
+            <span className="text-white font-heading font-bold text-xl">K</span>
           </div>
           {!collapsed && (
-            <span className="font-heading font-bold text-xl text-foreground">Kreasik</span>
+            <span className="font-heading font-bold text-2xl text-foreground">Kreasik</span>
           )}
         </div>
 
