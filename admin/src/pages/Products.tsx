@@ -454,6 +454,8 @@ function ProductModal({
                 <option value="3d-print">3D Print</option>
                 <option value="apparel">Apparel</option>
                 <option value="diy">DIY Crafts</option>
+                <option value="print">Print Products</option>
+                <option value="junkyard">Junkyard</option>
               </select>
             </div>
           </div>

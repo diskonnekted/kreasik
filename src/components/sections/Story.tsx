@@ -16,22 +16,12 @@ export default function Story() {
             transition={{ duration: 0.6 }}
           >
             <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-terracotta/20 to-warm-clay/20 rounded-2xl overflow-hidden">
-                <div className="w-full h-full flex items-center justify-center p-12">
-                  <div className="text-center">
-                    <div className="w-24 h-24 mx-auto mb-6 bg-white/80 rounded-2xl flex items-center justify-center shadow-card">
-                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-terracotta">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                      </svg>
-                    </div>
-                    <p className="font-heading font-semibold text-heading-md text-foreground">
-                      Workshop & Studio
-                    </p>
-                    <p className="text-body-sm text-foreground/60 mt-2">
-                      Tempat kreativitas bertemu teknologi
-                    </p>
-                  </div>
-                </div>
+              <div className="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl overflow-hidden">
+                <img
+                  src="/products/my_figure.png"
+                  alt="Custom 3D Figur Service"
+                  className="w-full h-full object-cover"
+                />
               </div>
               {/* Decorative element */}
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/10 rounded-2xl -z-10" />
@@ -45,29 +35,29 @@ export default function Story() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block badge bg-terracotta/10 text-terracotta mb-6">
-              Cerita Kami
+            <span className="inline-block badge bg-primary/10 text-primary mb-6">
+              Layanan Unggulan
             </span>
             <h2 className="font-heading font-bold text-heading-lg md:text-heading-xl mb-6">
-              Tempat Kerajinan Tradisional Bertemu Teknologi Modern
+              Custom 3D Figur Dari Foto Asli Anda
             </h2>
             <div className="space-y-4 text-body text-foreground/70 leading-relaxed">
               <p>
-                Kreasik lahir dari kecintaan kita menggabungkan kehangatan kerajinan tangan dengan presisi teknologi 3D printing. Setiap produk di koleksi kami punya cerita unik masing-masing.
+                Layanan unggulan kami adalah mengubah foto Anda menjadi patung 3D berkualitas tinggi! Cukup kirimkan foto Anda, dan kami akan buat figur 3D yang realistis dan detail.
               </p>
               <p>
-                Kami percaya kalau kreativitas bisa ubah barang biasa jadi sesuatu yang luar biasa. Dari vas geometris sampai apparel custom, setiap produk didesain dengan care dan dibuat dengan tujuan.
+                Pilih style sesuai keinginan Anda: model <strong>Real</strong> yang fotorealistik, model <strong>Anime</strong> yang colorful dan playful, atau <strong>Custom</strong> sesuai kreativitas Anda. Setiap figur dibuat dengan teknologi 3D printing terbaik dan di-finish dengan tangan untuk hasil premium.
               </p>
               <p>
-                Workshop kami adalah tempat dimana imajinasi jadi bentuk fisik — menggabungkan teknik artisan tradisional dengan fabrikasi digital mutakhir.
+                Sempurna untuk hadiah ulang tahun, anniversary, dekorasi rumah, atau koleksi pribadi. Buat momen spesial Anda jadi abadi dalam bentuk 3D!
               </p>
             </div>
             <motion.a
-              href="#full-story"
+              href="/products"
               whileHover={{ x: 4 }}
               className="btn-primary inline-flex items-center gap-2 mt-8"
             >
-              Baca Cerita Lengkap
+              Lihat Contoh Karya
               <ArrowRight size={18} />
             </motion.a>
           </motion.div>

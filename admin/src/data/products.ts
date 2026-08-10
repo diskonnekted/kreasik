@@ -291,4 +291,28 @@ export const initialProducts: Product[] = [
     details: ['Material: Cotton Combed 30s', 'Printing: DTF Premium', 'Weight: 180 GSM', 'Unisex fit S-XXL'],
     hasVariants: false, createdAt: '2025-08-01T10:00:00Z', updatedAt: '2025-08-01T10:00:00Z',
   },
+  {
+    id: 200, name: 'Print Banner', slug: 'print-banner',
+    description: 'Banner berkualitas tinggi untuk promosi bisnis Anda. Tahan lama dan warna tajam.',
+    price: 150000, weight: 500, stock: 50, category: 'print', badge: 'NEW',
+    images: ['/products/print banner.png'], rating: 5, reviews: 0,
+    details: ['Material: Vinyl Premium', 'Weather resistant', 'Custom size available', 'High quality print'],
+    hasVariants: false, createdAt: '2025-08-10T10:00:00Z', updatedAt: '2025-08-10T10:00:00Z',
+  },
+  {
+    id: 201, name: 'Print Poster', slug: 'print-poster',
+    description: 'Poster aesthetic untuk dekorasi ruang Anda. Kualitas cetak premium.',
+    price: 75000, weight: 200, stock: 100, category: 'print', badge: 'NEW',
+    images: ['/products/print poster.JPG'], rating: 5, reviews: 0,
+    details: ['Material: Art Paper Premium', 'Vibrant colors', 'Multiple sizes available', 'Indoor use'],
+    hasVariants: false, createdAt: '2025-08-10T10:00:00Z', updatedAt: '2025-08-10T10:00:00Z',
+  },
+  {
+    id: 202, name: 'Print X-Banner', slug: 'print-x-banner',
+    description: 'X-Banner portable untuk event dan promosi. Mudah dipasang dan dibawa.',
+    price: 125000, weight: 800, stock: 40, category: 'print', badge: 'NEW',
+    images: ['/products/print x-banner.png'], rating: 5, reviews: 0,
+    details: ['Material: PVC Premium', 'With stand included', 'Portable design', 'Weather resistant'],
+    hasVariants: false, createdAt: '2025-08-10T10:00:00Z', updatedAt: '2025-08-10T10:00:00Z',
+  },
 ]

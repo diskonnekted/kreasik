@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ShippingCalculator from '@/components/sections/ShippingCalculator'
+import { useCart } from '@/context/CartContext'
 
 interface Product {
   id: number
@@ -250,6 +251,69 @@ const products: Product[] = [
     weight: 180, details: ['Material: Cotton Combed 30s', 'Printing: DTF Premium', 'Weight: 180 GSM', 'Unisex fit', 'Ready size S-XXL'],
     hasVariants: false,
   },
+  {
+    id: 200, name: 'Print Banner', slug: 'print-banner', price: 150000, category: 'print',
+    badge: 'NEW', images: ['/products/print banner.png'], rating: 5, reviews: 0,
+    description: 'Banner berkualitas tinggi untuk promosi bisnis Anda. Tahan lama dan warna tajam.',
+    weight: 500, details: ['Material: Banner Premium', 'Printing: Full Color', 'Weather resistant', 'Custom size available'],
+    hasVariants: false,
+  },
+  {
+    id: 201, name: 'Print Poster', slug: 'print-poster', price: 75000, category: 'print',
+    badge: 'NEW', images: ['/products/print poster.JPG'], rating: 5, reviews: 0,
+    description: 'Poster aesthetic untuk dekorasi ruang Anda. Kualitas cetak premium.',
+    weight: 200, details: ['Material: Paper Premium', 'Printing: HD Quality', 'Various sizes available', 'Indoor use'],
+    hasVariants: false,
+  },
+  {
+    id: 202, name: 'Print X-Banner', slug: 'print-x-banner', price: 125000, category: 'print',
+    badge: 'NEW', images: ['/products/print x-banner.png'], rating: 5, reviews: 0,
+    description: 'X-Banner portable untuk event dan promosi. Mudah dipasang dan dibawa.',
+    weight: 800, details: ['Material: Plastic + Stand', 'Printing: Full Color', 'Stand included', 'Portable design'],
+    hasVariants: false,
+  },
+  {
+    id: 300, name: 'DIY Patung Dawet Ayu Banjarnegara', slug: 'diy-patung-dawet-ayu-banjarnegara', price: 185000, category: 'diy',
+    badge: 'NEW', images: ['/products/diy patung dawet ayu banjarnegara.png'], rating: 5, reviews: 0,
+    description: 'Kit DIY patung Dawet Ayu khas Banjarnegara. Rak sendiri patung tradisional dengan resin berkualitas.',
+    weight: 400, details: ['Material: Resin Premium', 'Weight: 400gr', 'Includes mold & resin', 'Instructions included', 'Traditional Banjarnegara motif'],
+    ...resinVariants,
+  },
+  {
+    id: 301, name: 'DIY Patung Dawet Ayu Banjarnegara Varian 2', slug: 'diy-patung-dawet-ayu-banjarnegara-varian-2', price: 175000, category: 'diy',
+    badge: 'NEW', images: ['/products/diy patung dawet ayu banjarnegara varian 2.png'], rating: 5, reviews: 0,
+    description: 'Varian 2 DIY Patung Dawet Ayu dengan pose berbeda. Kit lengkap dengan resin dan cetakan detail.',
+    weight: 380, details: ['Material: Resin Premium', 'Weight: 380gr', 'Includes mold & resin', 'Different pose variant', 'Traditional craftsmanship'],
+    ...resinVariants,
+  },
+  {
+    id: 302, name: 'DIY Resin Candi Arjuna', slug: 'diy-resin-candi-arjuna', price: 195000, category: 'diy',
+    badge: 'NEW', images: ['/products/diy resin candi arjuna.png'], rating: 5, reviews: 0,
+    description: 'Kit DIY Candi Arjuna dari Borobudur. Rak sendiri candi legendaris Indonesia dengan resin premium.',
+    weight: 450, details: ['Material: Resin Premium', 'Weight: 450gr', 'Includes mold & resin', 'Borobudur motif', 'Detailed architectural elements'],
+    ...resinVariants,
+  },
+  {
+    id: 303, name: 'DIY Resin Candi Arjuna Varian 2', slug: 'diy-resin-candi-arjuna-varian-2', price: 185000, category: 'diy',
+    badge: 'NEW', images: ['/products/diy resin candi arjuna varian 2.png'], rating: 5, reviews: 0,
+    description: 'Varian 2 Candi Arjuna dengan detail arsiran berbeda. Cocok untuk koleksi sejarah dan DIY enthusiast.',
+    weight: 420, details: ['Material: Resin Premium', 'Weight: 420gr', 'Includes mold & resin', 'Alternative detail variant', 'Historical accuracy'],
+    ...resinVariants,
+  },
+  {
+    id: 304, name: 'DIY Resin Miniatur Tugu Banjarnegara', slug: 'diy-resin-miniatur-tugu-banjarnegara', price: 165000, category: 'diy',
+    badge: 'NEW', images: ['/products/diy resin miniatur tugu banjarnegara.JPG'], rating: 5, reviews: 0,
+    description: 'Kit DIY miniatur Tugu Banjarnegara. Monumen ikonik kota Banjarnegara dalam bentuk resin miniatur.',
+    weight: 350, details: ['Material: Resin Premium', 'Weight: 350gr', 'Includes mold & resin', 'Iconic monument', 'City landmark replica'],
+    ...resinVariants,
+  },
+  {
+    id: 305, name: 'DIY Resin Miniatur Tugu Banjarnegara Varian 1', slug: 'diy-resin-miniatur-tugu-banjarnegara-varian-1', price: 175000, category: 'diy',
+    badge: 'NEW', images: ['/products/diy resin miniatur tugu banjarnegara varian 1.JPG'], rating: 5, reviews: 0,
+    description: 'Varian 1 Miniatur Tugu Banjarnegara dengan base landscape. Kit lengkap dengan aksesori landscape.',
+    weight: 380, details: ['Material: Resin Premium', 'Weight: 380gr', 'Includes mold & resin', 'Landscape base included', 'Premium variant'],
+    ...resinVariants,
+  },
 ]
 
 export default function ProductDetail({ params }: { params: { slug: string } }) {
@@ -259,6 +323,8 @@ export default function ProductDetail({ params }: { params: { slug: string } }) 
   const [selectedScale, setSelectedScale] = useState<string>('1:64')
   const [selectedFinish, setSelectedFinish] = useState<string>('Polos')
   const [showShipping, setShowShipping] = useState(false)
+  const [addedToCart, setAddedToCart] = useState(false)
+  const { addItem } = useCart()
 
   const product = products.find((p) => p.slug === params.slug)
 
@@ -501,9 +567,22 @@ export default function ProductDetail({ params }: { params: { slug: string } }) 
 
               {/* Action Buttons */}
               <div className="flex gap-3 mb-8">
-                <button className="btn-primary flex-1 flex items-center justify-center gap-2">
+                <button
+                  onClick={() => {
+                    addItem({
+                      id: product.id,
+                      name: product.name,
+                      price: getVariantPrice(),
+                      image: product.images[0],
+                      weight: product.weight,
+                    })
+                    setAddedToCart(true)
+                    setTimeout(() => setAddedToCart(false), 1500)
+                  }}
+                  className="btn-primary flex-1 flex items-center justify-center gap-2"
+                >
                   <ShoppingBag size={18} />
-                  Add to Cart
+                  {addedToCart ? 'Ditambahkan!' : 'Add to Cart'}
                 </button>
                 <button
                   onClick={() => setLiked(!liked)}

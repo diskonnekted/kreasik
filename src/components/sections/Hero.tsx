@@ -63,12 +63,12 @@ export default function Hero() {
               viewport={{ once: true, margin: '-100px' }}
             >
               <span className="inline-flex items-center gap-2 badge-new mb-6">
-                <Sparkles size={14} />
-                Kerajinan Tangan + Tekno Modern
-              </span>
-            </motion.div>
+              <Sparkles size={14} />
+              Custom 3D Figur - Foto Asli Anda
+            </span>
+          </motion.div>
 
-            <motion.h1
+          <motion.h1
               custom={1}
               variants={heroVariants}
               initial="hidden"
@@ -76,8 +76,8 @@ export default function Hero() {
               viewport={{ once: true, margin: '-100px' }}
               className="font-heading font-bold text-heading-xl md:text-[56px] lg:text-heading-xl leading-tight md:leading-tight text-foreground mb-6"
             >
-              Produk 3D Print & DIY{' '}
-              <span className="text-gradient">Keren-keren</span>
+              Unik & Eksklusif.{' '}
+              <span className="text-gradient">Dibuat Khusus Untukmu.</span>
             </motion.h1>
 
             <motion.p
@@ -88,7 +88,7 @@ export default function Hero() {
               viewport={{ once: true, margin: '-100px' }}
               className="text-body-lg md:text-body text-foreground/70 max-w-lg mb-10 leading-relaxed"
             >
-              Temuin barang unik hasil karya tangan + teknologi 3D printing. Dari dekorasi rumah sampai apparel custom, semua ada di sini.
+              Temukan koleksi patung resin premium dan apparel custom dengan desain unik. Setiap produk dibuat dengan detail sempurna dan kualitas terbaik untuk menemani ruang favoritmu.
             </motion.p>
 
             <motion.div
@@ -100,11 +100,11 @@ export default function Hero() {
               className="flex flex-wrap gap-4"
             >
               <a href="/products" className="btn-primary inline-flex items-center gap-2">
-                Belanja Sekarang
+                Lihat Koleksi
                 <ArrowRight size={18} />
               </a>
               <a href="#about" className="btn-secondary">
-                Cerita Kami
+                Pelajari Lebih
               </a>
             </motion.div>
           </div>
@@ -119,11 +119,11 @@ export default function Hero() {
             className="relative"
           >
             <div className="relative aspect-square max-w-lg mx-auto">
-              {/* Main showcase card - Resin Angel Girl In Ground */}
+              {/* Main showcase card - Featured Product */}
               <div className="absolute inset-4 rounded-2xl overflow-hidden shadow-card-hover">
                 <img
-                  src="/products/resin angel girl in ground.png"
-                  alt="Resin Angel Girl In Ground"
+                  src="/products/siswi_figur_resin.JPG"
+                  alt="Siswi Figur Resin - Featured Product"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -134,8 +134,8 @@ export default function Hero() {
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                 className="absolute -top-4 -right-4 bg-white rounded-xl shadow-card px-4 py-3"
               >
-                <p className="font-heading font-semibold text-sm text-foreground">Resin Collection</p>
-                <p className="text-caption text-foreground/50">Angel Girl In Ground</p>
+                <p className="font-heading font-semibold text-sm text-foreground">Best Seller</p>
+                <p className="text-caption text-foreground/50">Resin Angel Collection</p>
               </motion.div>
 
               <motion.div

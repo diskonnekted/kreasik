@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Syne, Manrope } from 'next/font/google'
 import './globals.css'
+import { CartProvider } from '@/context/CartContext'
 
 const syne = Syne({
   subsets: ['latin'],
@@ -29,7 +30,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${syne.variable} ${manrope.variable}`}>
-      <body className="font-[family-name:var(--font-manrope)]">{children}</body>
+      <body className="font-[family-name:var(--font-manrope)]">
+        <CartProvider>{children}</CartProvider>
+      </body>
     </html>
   )
 }

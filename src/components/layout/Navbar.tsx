@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { ShoppingBag, Search, Menu, X, User } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import { useCart } from '@/context/CartContext'
 
 const navItems = [
   { label: 'Beranda', href: '/' },
@@ -17,6 +18,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
+  const { totalItems } = useCart()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -77,9 +79,11 @@ export default function Navbar() {
               aria-label="Cart"
             >
               <ShoppingBag size={20} />
-              <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-primary text-on-primary text-caption flex items-center justify-center rounded-full">
-                0
-              </span>
+              {totalItems > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-primary text-on-primary text-caption flex items-center justify-center rounded-full">
+                  {totalItems}
+                </span>
+              )}
             </a>
 
             {/* Account */}

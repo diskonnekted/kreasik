@@ -5,34 +5,10 @@ import { motion } from 'framer-motion'
 import { ChevronRight, Minus, Plus, Trash2, ShoppingBag, ArrowLeft, Check } from 'lucide-react'
 import Link from 'next/link'
 import ShippingCalculator from '@/components/sections/ShippingCalculator'
-
-interface CartItem {
-  id: number
-  name: string
-  price: number
-  quantity: number
-  image: string
-}
-
-const demoCart: CartItem[] = [
-  {
-    id: 13,
-    name: 'Resin Angel Girl',
-    price: 370000,
-    quantity: 1,
-    image: '/products/resin angel girl.png',
-  },
-  {
-    id: 15,
-    name: 'Resin General Figure',
-    price: 340000,
-    quantity: 1,
-    image: '/products/resin general figure.png',
-  },
-]
+import { useCart } from '@/context/CartContext'
 
 export default function CheckoutPage() {
-  const [cart, setCart] = useState<CartItem[]>(demoCart)
+  const { items, updateQuantity, removeItem, subtotal } = useCart()
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -53,7 +29,6 @@ export default function CheckoutPage() {
   } | null>(null)
   const [showShipping, setShowShipping] = useState(false)
 
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const isFreeShipping = subtotal >= 200000
   const effectiveShippingCost = isFreeShipping ? 0 : shippingCost
   const total = subtotal + effectiveShippingCost
@@ -65,20 +40,6 @@ export default function CheckoutPage() {
       currency: 'IDR',
       minimumFractionDigits: 0,
     }).format(amount)
-  }
-
-  const updateQuantity = (id: number, delta: number) => {
-    setCart((prev) =>
-      prev
-        .map((item) =>
-          item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
-        )
-        .filter((item) => item.quantity > 0)
-    )
-  }
-
-  const removeItem = (id: number) => {
-    setCart((prev) => prev.filter((item) => item.id !== id))
   }
 
   const handleShippingSelect = (cost: number, etd: string, courier: string, service: string) => {
@@ -257,7 +218,7 @@ export default function CheckoutPage() {
 
                 {/* Cart Items */}
                 <div className="space-y-4 mb-6">
-                  {cart.map((item) => (
+                  {items.map((item) => (
                     <div key={item.id} className="flex gap-3">
                       <div className="w-16 h-16 rounded-lg bg-muted overflow-hidden flex-shrink-0">
                         <img src={item.image} alt={item.name} className="w-full h-full object-cover" />

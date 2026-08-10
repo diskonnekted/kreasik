@@ -2,10 +2,13 @@
 
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Heart, ShoppingBag, Star, SlidersHorizontal, X, ChevronDown } from 'lucide-react'
+import { Heart, ShoppingBag, Star, SlidersHorizontal, X, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import { useCart } from '@/context/CartContext'
+
+const PRODUCTS_PER_PAGE = 9
 
 interface Product {
   id: number
@@ -244,6 +247,96 @@ const products: Product[] = [
     description: 'T-shirt We Are The Spark. Jadilah percikan perubahan.',
     weight: 180, basePrice: 175000,
   },
+  {
+    id: 200, slug: 'print-banner', name: 'Print Banner', category: 'print', badge: 'NEW',
+    image: '/products/print banner.png', rating: 5, reviews: 0,
+    description: 'Banner berkualitas tinggi untuk promosi bisnis Anda. Tahan lama dan warna tajam.',
+    weight: 500, basePrice: 150000,
+  },
+  {
+    id: 201, slug: 'print-poster', name: 'Print Poster', category: 'print', badge: 'NEW',
+    image: '/products/print poster.JPG', rating: 5, reviews: 0,
+    description: 'Poster aesthetic untuk dekorasi ruang Anda. Kualitas cetak premium.',
+    weight: 200, basePrice: 75000,
+  },
+  {
+    id: 202, slug: 'print-x-banner', name: 'Print X-Banner', category: 'print', badge: 'NEW',
+    image: '/products/print x-banner.png', rating: 5, reviews: 0,
+    description: 'X-Banner portable untuk event dan promosi. Mudah dipasang dan dibawa.',
+    weight: 800, basePrice: 125000,
+  },
+  {
+    id: 300, slug: 'diy-patung-dawet-ayu-banjarnegara', name: 'DIY Patung Dawet Ayu Banjarnegara', category: 'diy', badge: 'NEW',
+    image: '/products/diy patung dawet ayu banjarnegara.png', rating: 5, reviews: 0,
+    description: 'Kit DIY patung Dawet Ayu khas Banjarnegara. Rak sendiri patung tradisional dengan resin berkualitas.',
+    weight: 400, basePrice: 185000,
+    variations: {
+      finish: ['Polos', 'Cat Sendiri'],
+      scale: ['Kecil', 'Sedang', 'Besar'],
+      scalePrice: { 'Kecil': 0, 'Sedang': 35000, 'Besar': 75000 },
+      finishPrice: { 'Polos': 0, 'Cat Sendiri': 25000 },
+    },
+  },
+  {
+    id: 301, slug: 'diy-patung-dawet-ayu-banjarnegara-varian-2', name: 'DIY Patung Dawet Ayu Banjarnegara Varian 2', category: 'diy', badge: 'NEW',
+    image: '/products/diy patung dawet ayu banjarnegara varian 2.png', rating: 5, reviews: 0,
+    description: 'Varian 2 DIY Patung Dawet Ayu dengan pose berbeda. Kit lengkap dengan resin dan cetakan detail.',
+    weight: 380, basePrice: 175000,
+    variations: {
+      finish: ['Polos', 'Cat Sendiri'],
+      scale: ['Kecil', 'Sedang', 'Besar'],
+      scalePrice: { 'Kecil': 0, 'Sedang': 30000, 'Besar': 70000 },
+      finishPrice: { 'Polos': 0, 'Cat Sendiri': 25000 },
+    },
+  },
+  {
+    id: 302, slug: 'diy-resin-candi-arjuna', name: 'DIY Resin Candi Arjuna', category: 'diy', badge: 'NEW',
+    image: '/products/diy resin candi arjuna.png', rating: 5, reviews: 0,
+    description: 'Kit DIY Candi Arjuna dari Borobudur. Rak sendiri candi legendaris Indonesia dengan resin premium.',
+    weight: 450, basePrice: 195000,
+    variations: {
+      finish: ['Polos', 'Gold Leaf'],
+      scale: ['1:100', '1:50', '1:25'],
+      scalePrice: { '1:100': 0, '1:50': 45000, '1:25': 95000 },
+      finishPrice: { 'Polos': 0, 'Gold Leaf': 55000 },
+    },
+  },
+  {
+    id: 303, slug: 'diy-resin-candi-arjuna-varian-2', name: 'DIY Resin Candi Arjuna Varian 2', category: 'diy', badge: 'NEW',
+    image: '/products/diy resin candi arjuna varian 2.png', rating: 5, reviews: 0,
+    description: 'Varian 2 Candi Arjuna dengan detail arsiran berbeda. Cocok untuk koleksi sejarah dan DIY enthusiast.',
+    weight: 420, basePrice: 185000,
+    variations: {
+      finish: ['Polos', 'Gold Leaf'],
+      scale: ['1:100', '1:50', '1:25'],
+      scalePrice: { '1:100': 0, '1:50': 40000, '1:25': 90000 },
+      finishPrice: { 'Polos': 0, 'Gold Leaf': 55000 },
+    },
+  },
+  {
+    id: 304, slug: 'diy-resin-miniatur-tugu-banjarnegara', name: 'DIY Resin Miniatur Tugu Banjarnegara', category: 'diy', badge: 'NEW',
+    image: '/products/diy resin miniatur tugu banjarnegara.JPG', rating: 5, reviews: 0,
+    description: 'Kit DIY miniatur Tugu Banjarnegara. Monumen ikonik kota Banjarnegara dalam bentuk resin miniatur.',
+    weight: 350, basePrice: 165000,
+    variations: {
+      finish: ['Polos', 'Weathered'],
+      scale: ['Kecil', 'Sedang', 'Besar'],
+      scalePrice: { 'Kecil': 0, 'Sedang': 25000, 'Besar': 65000 },
+      finishPrice: { 'Polos': 0, 'Weathered': 35000 },
+    },
+  },
+  {
+    id: 305, slug: 'diy-resin-miniatur-tugu-banjarnegara-varian-1', name: 'DIY Resin Miniatur Tugu Banjarnegara Varian 1', category: 'diy', badge: 'NEW',
+    image: '/products/diy resin miniatur tugu banjarnegara varian 1.JPG', rating: 5, reviews: 0,
+    description: 'Varian 1 Miniatur Tugu Banjarnegara dengan base landscape. Kit lengkap dengan aksesori landscape.',
+    weight: 380, basePrice: 175000,
+    variations: {
+      finish: ['Polos', 'Weathered'],
+      scale: ['Kecil', 'Sedang', 'Besar'],
+      scalePrice: { 'Kecil': 0, 'Sedang': 30000, 'Besar': 70000 },
+      finishPrice: { 'Polos': 0, 'Weathered': 35000 },
+    },
+  },
 ]
 
 const categories = [
@@ -251,6 +344,8 @@ const categories = [
   { id: '3d-print', label: '3D Print' },
   { id: 'apparel', label: 'Apparel' },
   { id: 'diy', label: 'DIY Crafts' },
+  { id: 'print', label: 'Print Products' },
+  { id: 'junkyard', label: 'Junkyard' },
 ]
 
 const sortOptions = [
@@ -267,6 +362,8 @@ export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [showFilters, setShowFilters] = useState(false)
   const [likedProducts, setLikedProducts] = useState<Set<number>>(new Set())
+  const [currentPage, setCurrentPage] = useState(1)
+  const { addItem } = useCart()
 
   const toggleLike = (id: number) => {
     setLikedProducts((prev) => {
@@ -305,6 +402,19 @@ export default function ProductsPage() {
     return result
   }, [selectedCategory, priceRange, sortBy, searchQuery])
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE)
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE
+    return filteredProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE)
+  }, [filteredProducts, currentPage])
+
+  // Reset ke halaman 1 ketika filter berubah
+  const handleFilterChange = (updater: (prev: any) => any) => {
+    setCurrentPage(1)
+    updater({ selectedCategory, priceRange, sortBy, searchQuery })
+  }
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
@@ -314,6 +424,7 @@ export default function ProductsPage() {
   }
 
   const clearFilters = () => {
+    setCurrentPage(1)
     setSelectedCategory('all')
     setPriceRange([0, 500000])
     setSortBy('newest')
@@ -493,7 +604,7 @@ export default function ProductsPage() {
                         <h4 className="font-heading font-semibold text-body-sm mb-3">Urutkan</h4>
                         <select
                           value={sortBy}
-                          onChange={(e) => setSortBy(e.target.value)}
+                          onChange={(e) => { setCurrentPage(1); setSortBy(e.target.value) }}
                           className="w-full px-3 py-2.5 rounded-lg border bg-background text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
                         >
                           {sortOptions.map((opt) => (
@@ -524,13 +635,13 @@ export default function ProductsPage() {
               {/* Sort & Count - Desktop */}
               <div className="hidden lg:flex items-center justify-between mb-6">
                 <p className="text-body-sm text-foreground/60">
-                  Menampilkan <span className="font-semibold text-foreground">{filteredProducts.length}</span> produk
+                  Menampilkan <span className="font-semibold text-foreground">{paginatedProducts.length}</span> dari <span className="font-semibold text-foreground">{filteredProducts.length}</span> produk
                 </p>
                 <div className="flex items-center gap-2">
                   <span className="text-body-sm text-foreground/60">Urutkan:</span>
                   <select
                     value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
+                    onChange={(e) => { setCurrentPage(1); setSortBy(e.target.value) }}
                     className="px-3 py-1.5 rounded-lg border bg-white text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     {sortOptions.map((opt) => (
@@ -543,13 +654,13 @@ export default function ProductsPage() {
               </div>
 
               {/* Products */}
-              {filteredProducts.length > 0 ? (
+              {paginatedProducts.length > 0 ? (
                 <motion.div
                   layout
                   className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
                 >
                   <AnimatePresence>
-                    {filteredProducts.map((product) => (
+                    {paginatedProducts.map((product) => (
                       <motion.div
                         key={product.id}
                         layout
@@ -596,6 +707,7 @@ export default function ProductsPage() {
                                   />
                                 </button>
                                 <button
+                                  onClick={() => addItem({ id: product.id, name: product.name, price: product.basePrice, image: product.image, weight: product.weight })}
                                   className="p-2.5 rounded-full bg-white shadow-md hover:bg-accent hover:text-white transition-colors"
                                   aria-label="Add to cart"
                                 >
@@ -611,7 +723,13 @@ export default function ProductsPage() {
                                   ? '3D Print'
                                   : product.category === 'apparel'
                                   ? 'Apparel'
-                                  : 'DIY Crafts'}
+                                  : product.category === 'diy'
+                                  ? 'DIY Crafts'
+                                  : product.category === 'print'
+                                  ? 'Print Products'
+                                  : product.category === 'junkyard'
+                                  ? 'Junkyard'
+                                  : product.category}
                               </p>
                               <h3 className="font-heading font-semibold text-body mb-1 group-hover:text-primary transition-colors line-clamp-1">
                                 {product.name}
@@ -673,6 +791,43 @@ export default function ProductsPage() {
                     className="btn-primary inline-flex items-center gap-2"
                   >
                     Reset Semua Filter
+                  </button>
+                </div>
+              )}
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-8">
+                  <button
+                    onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                    disabled={currentPage === 1}
+                    className="p-2 rounded-lg border hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-10 h-10 rounded-lg border font-heading text-body-sm transition-colors ${
+                        currentPage === page
+                          ? 'bg-primary text-white border-primary'
+                          : 'hover:bg-muted'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+                    disabled={currentPage === totalPages}
+                    className="p-2 rounded-lg border hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="Next page"
+                  >
+                    <ChevronRight size={20} />
                   </button>
                 </div>
               )}
