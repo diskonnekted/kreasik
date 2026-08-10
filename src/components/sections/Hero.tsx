@@ -134,8 +134,8 @@ export default function Hero() {
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                 className="absolute -top-4 -right-4 bg-white rounded-xl shadow-card px-4 py-3"
               >
-                <p className="font-heading font-semibold text-sm text-foreground">Best Seller</p>
-                <p className="text-caption text-foreground/50">Resin Angel Collection</p>
+                <p className="font-heading font-semibold text-sm text-foreground">Premium Quality</p>
+                <p className="text-caption text-foreground/50">Handmade Resin Art</p>
               </motion.div>
 
               <motion.div
