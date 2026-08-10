@@ -601,7 +601,12 @@ function ProductModal({
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div>
               <label className="block text-body-sm font-semibold text-foreground/70 mb-1">
-                Harga Dasar (1:64 Polos) *
+                {formData.category === 'apparel'
+                  ? 'Harga Dasar (S Polos) *'
+                  : formData.category === 'diy'
+                  ? 'Harga Dasar'
+                  : 'Harga Dasar (1:64 Polos) *'
+                }
                 {previewPrice && previewPrice.min !== previewPrice.max && (
                   <span className="block text-foreground/40 font-normal mt-0.5">
                     Rentang: {formatCurrency(previewPrice.min)} — {formatCurrency(previewPrice.max)}
