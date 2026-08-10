@@ -4,16 +4,14 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Admin dashboard
+  // Admin dashboard - rewrite to admin/index.html
   if (pathname.startsWith('/admin')) {
-    const adminUrl = new URL('/admin/index.html', request.url)
-    return NextResponse.rewrite(adminUrl)
+    return NextResponse.rewrite(new URL('/admin/index.html', request.url))
   }
 
-  // Sanity Studio
+  // Sanity Studio - rewrite to studio/index.html  
   if (pathname.startsWith('/studio')) {
-    const studioUrl = new URL('/studio/index.html', request.url)
-    return NextResponse.rewrite(studioUrl)
+    return NextResponse.rewrite(new URL('/studio/index.html', request.url))
   }
 
   return NextResponse.next()
