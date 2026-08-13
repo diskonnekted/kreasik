@@ -641,6 +641,16 @@ export default function ProductDetail({ params }: { params: { slug: string } }) 
   const [showShipping, setShowShipping] = useState(false)
   const [addedToCart, setAddedToCart] = useState(false)
   const { addItem } = useCart()
+  
+  const [zoomPos, setZoomPos] = useState({ x: 0, y: 0 })
+  const [isZoomed, setIsZoomed] = useState(false)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
+    const x = ((e.clientX - left) / width) * 100
+    const y = ((e.clientY - top) / height) * 100
+    setZoomPos({ x, y })
+  }
 
   const product = products.find((p) => p.slug === params.slug)
 
@@ -703,11 +713,20 @@ export default function ProductDetail({ params }: { params: { slug: string } }) 
             {/* Left: Image Gallery */}
             <div>
               {/* Main Image */}
-              <div className="aspect-square bg-white rounded-2xl overflow-hidden mb-4 shadow-card">
+              <div 
+                className="relative aspect-square bg-white rounded-2xl overflow-hidden mb-4 shadow-card cursor-zoom-in"
+                onMouseEnter={() => setIsZoomed(true)}
+                onMouseLeave={() => setIsZoomed(false)}
+                onMouseMove={handleMouseMove}
+              >
                 <img
                   src={product.images[selectedImage]}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-200 ease-out"
+                  style={{
+                    transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
+                    transform: isZoomed ? 'scale(2.2)' : 'scale(1)',
+                  }}
                 />
                 {product.badge && (
                   <span className={`absolute top-4 left-4 ${
