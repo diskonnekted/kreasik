@@ -76,8 +76,8 @@ export default function Hero() {
               viewport={{ once: true, margin: '-100px' }}
               className="font-heading font-bold text-heading-xl md:text-[56px] lg:text-heading-xl leading-tight md:leading-tight text-foreground mb-6"
             >
-              Cetak & Sablon Berkualitas di{' '}
-              <span className="text-gradient">Banjarnegara</span>
+              Menerima Pesanan{' '}
+              <span className="text-gradient">Apa Saja</span>
             </motion.h1>
 
             <motion.p
