@@ -317,6 +317,16 @@ const products: Product[] = [
     image: '/products/craft plakat smansabara.JPG', rating: 5, reviews: 0,
     description: 'Produk kerajinan tangan kreatif Plakat Smansabara berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
   },
+  {
+    id: 422, slug: 'diy-diorama-proklamasi', name: 'Diorama Proklamasi', category: 'diy', badge: 'NEW',
+    image: '/products/craft diorama proklamasi.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Diorama Proklamasi berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 423, slug: 'diy-merdeka!', name: 'Merdeka!', category: 'diy', badge: 'NEW',
+    image: '/products/craft merdeka!.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Merdeka! berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
 ]
 
 const categories = [
