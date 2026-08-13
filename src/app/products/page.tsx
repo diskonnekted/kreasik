@@ -214,6 +214,9 @@ const products: Product[] = [
       finish: ['Polos', 'Weathered'],
       scale: ['Kecil', 'Sedang', 'Besar'],
       scalePrice: { 'Kecil': 0, 'Sedang': 30000, 'Besar': 70000 },
+      finishPrice: { 'Polos': 0, 'Weathered': 35000 },
+    },
+  },
   {
     id: 400, slug: 'diy-dawet-ayu-4', name: 'Dawet Ayu 4', category: 'diy', badge: 'NEW',
     image: '/products/craft  dawet ayu 4.JPG', rating: 5, reviews: 0,
@@ -323,9 +326,6 @@ const products: Product[] = [
     id: 421, slug: 'diy-plakat-smansabara', name: 'Plakat Smansabara', category: 'diy', badge: 'NEW',
     image: '/products/craft plakat smansabara.JPG', rating: 5, reviews: 0,
     description: 'Produk kerajinan tangan kreatif Plakat Smansabara berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
-  },
-      finishPrice: { 'Polos': 0, 'Weathered': 35000 },
-    },
   },
 ]
 
