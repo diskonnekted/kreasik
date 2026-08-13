@@ -214,6 +214,116 @@ const products: Product[] = [
       finish: ['Polos', 'Weathered'],
       scale: ['Kecil', 'Sedang', 'Besar'],
       scalePrice: { 'Kecil': 0, 'Sedang': 30000, 'Besar': 70000 },
+  {
+    id: 400, slug: 'diy-dawet-ayu-4', name: 'Dawet Ayu 4', category: 'diy', badge: 'NEW',
+    image: '/products/craft  dawet ayu 4.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Dawet Ayu 4 berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 401, slug: 'diy-bupati-dipayudha', name: 'Bupati Dipayudha', category: 'diy', badge: 'NEW',
+    image: '/products/craft bupati dipayudha.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Bupati Dipayudha berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 402, slug: 'diy-dawet-ayu-2', name: 'Dawet Ayu 2', category: 'diy', badge: 'NEW',
+    image: '/products/craft dawet ayu 2.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Dawet Ayu 2 berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 403, slug: 'diy-dawet-ayu-3', name: 'Dawet Ayu 3', category: 'diy', badge: 'NEW',
+    image: '/products/craft dawet ayu 3.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Dawet Ayu 3 berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 404, slug: 'diy-dawet-ayu-5', name: 'Dawet Ayu 5', category: 'diy', badge: 'NEW',
+    image: '/products/craft dawet ayu 5.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Dawet Ayu 5 berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 405, slug: 'diy-dawet-ayu', name: 'Dawet Ayu', category: 'diy', badge: 'NEW',
+    image: '/products/craft dawet ayu.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Dawet Ayu berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 406, slug: 'diy-panglima-besar', name: 'Panglima Besar', category: 'diy', badge: 'NEW',
+    image: '/products/craft panglima besar.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Panglima Besar berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 407, slug: 'diy-patung-jendral-sudirman', name: 'Patung Jendral Sudirman', category: 'diy', badge: 'NEW',
+    image: '/products/craft patung jendral sudirman.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Patung Jendral Sudirman berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 408, slug: 'diy-patung-sukarno', name: 'Patung Sukarno', category: 'diy', badge: 'NEW',
+    image: '/products/craft patung sukarno.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Patung Sukarno berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 409, slug: 'diy-pengibaran-bendera-proklamasi-1945', name: 'Pengibaran Bendera Proklamasi 1945', category: 'diy', badge: 'NEW',
+    image: '/products/craft pengibaran bendera proklamasi 1945.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Pengibaran Bendera Proklamasi 1945 berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 410, slug: 'diy-piala-padel', name: 'Piala Padel', category: 'diy', badge: 'NEW',
+    image: '/products/craft piala padel.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Piala Padel berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 411, slug: 'diy-plakat-adv', name: 'Plakat ADV', category: 'diy', badge: 'NEW',
+    image: '/products/craft plakat adv.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Plakat ADV berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 412, slug: 'diy-plakat-design-poster', name: 'Plakat Design Poster', category: 'diy', badge: 'NEW',
+    image: '/products/craft plakat design poster.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Plakat Design Poster berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 413, slug: 'diy-plakat-fatayat-nu', name: 'Plakat Fatayat NU', category: 'diy', badge: 'NEW',
+    image: '/products/craft plakat fatayat nu.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Plakat Fatayat NU berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 414, slug: 'diy-plakat-hari-koperasi', name: 'Plakat Hari Koperasi', category: 'diy', badge: 'NEW',
+    image: '/products/craft plakat hari koperasi.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Plakat Hari Koperasi berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 415, slug: 'diy-plakat-kriya-kayu', name: 'Plakat Kriya Kayu', category: 'diy', badge: 'NEW',
+    image: '/products/craft plakat kriya kayu.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Plakat Kriya Kayu berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 416, slug: 'diy-plakat-lkbb', name: 'Plakat LKBB', category: 'diy', badge: 'NEW',
+    image: '/products/craft plakat lkbb.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Plakat LKBB berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 417, slug: 'diy-plakat-lomba-menyanyi', name: 'Plakat Lomba Menyanyi', category: 'diy', badge: 'NEW',
+    image: '/products/craft plakat lomba menyanyi.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Plakat Lomba Menyanyi berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 418, slug: 'diy-plakat-man-2', name: 'Plakat MAN 2', category: 'diy', badge: 'NEW',
+    image: '/products/craft plakat man 2.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Plakat MAN 2 berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 419, slug: 'diy-plakat-pkl', name: 'Plakat PKL', category: 'diy', badge: 'NEW',
+    image: '/products/craft plakat pkl.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Plakat PKL berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 420, slug: 'diy-plakat-rohis', name: 'Plakat Rohis', category: 'diy', badge: 'NEW',
+    image: '/products/craft plakat rohis.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Plakat Rohis berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
+  {
+    id: 421, slug: 'diy-plakat-smansabara', name: 'Plakat Smansabara', category: 'diy', badge: 'NEW',
+    image: '/products/craft plakat smansabara.JPG', rating: 5, reviews: 0,
+    description: 'Produk kerajinan tangan kreatif Plakat Smansabara berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
+  },
       finishPrice: { 'Polos': 0, 'Weathered': 35000 },
     },
   },
