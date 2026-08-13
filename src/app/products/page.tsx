@@ -218,11 +218,6 @@ const products: Product[] = [
     },
   },
   {
-    id: 400, slug: 'diy-dawet-ayu-4', name: 'Dawet Ayu 4', category: 'diy', badge: 'NEW',
-    image: '/products/craft  dawet ayu 4.JPG', rating: 5, reviews: 0,
-    description: 'Produk kerajinan tangan kreatif Dawet Ayu 4 berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
-  },
-  {
     id: 401, slug: 'diy-bupati-dipayudha', name: 'Bupati Dipayudha', category: 'diy', badge: 'NEW',
     image: '/products/craft bupati dipayudha.JPG', rating: 5, reviews: 0,
     description: 'Produk kerajinan tangan kreatif Bupati Dipayudha berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
@@ -231,11 +226,6 @@ const products: Product[] = [
     id: 402, slug: 'diy-dawet-ayu-2', name: 'Dawet Ayu 2', category: 'diy', badge: 'NEW',
     image: '/products/craft dawet ayu 2.JPG', rating: 5, reviews: 0,
     description: 'Produk kerajinan tangan kreatif Dawet Ayu 2 berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
-  },
-  {
-    id: 403, slug: 'diy-dawet-ayu-3', name: 'Dawet Ayu 3', category: 'diy', badge: 'NEW',
-    image: '/products/craft dawet ayu 3.JPG', rating: 5, reviews: 0,
-    description: 'Produk kerajinan tangan kreatif Dawet Ayu 3 berkualitas tinggi untuk koleksi dan pajangan dekorasi Anda.', weight: 300, basePrice: 150000,
   },
   {
     id: 404, slug: 'diy-dawet-ayu-5', name: 'Dawet Ayu 5', category: 'diy', badge: 'NEW',
