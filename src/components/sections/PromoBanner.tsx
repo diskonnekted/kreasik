@@ -213,13 +213,10 @@ export default function PromoBanner() {
                     <button
                       onClick={() => addItem({
                         id: p.id,
-                        slug: p.slug,
                         name: p.name,
                         price: p.promoPrice,
                         image: p.image,
-                        quantity: 1,
-                        weight: 300,
-                        hasVariants: false
+                        weight: 300
                       })}
                       className="bg-[#c8102e]/10 text-[#c8102e] hover:bg-[#c8102e] hover:text-white p-3 rounded-2xl transition-all duration-300 hover:scale-105"
                       aria-label="Tambah ke keranjang"
