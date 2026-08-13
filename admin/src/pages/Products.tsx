@@ -21,7 +21,7 @@ export default function ProductsPage() {
     setProducts(getProducts())
   }, [])
 
-  const categories = ['all', '3d-print', 'apparel', 'diy', 'print', 'junkyard']
+  const categories = ['all', '3d-print', 'diy', 'junkyard']
   const badges = ['all', 'NEW', 'HOT', 'SALE']
 
   const filteredProducts = products
@@ -601,9 +601,7 @@ function ProductModal({
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div>
               <label className="block text-body-sm font-semibold text-foreground/70 mb-1">
-                {formData.category === 'apparel'
-                  ? 'Harga Dasar (S Polos) *'
-                  : formData.category === 'diy'
+                {formData.category === 'diy'
                   ? 'Harga Dasar'
                   : 'Harga Dasar (1:64 Polos) *'
                 }
@@ -651,9 +649,7 @@ function ProductModal({
                 className="w-full px-3 py-2.5 rounded-lg border bg-background text-body-sm focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 <option value="3d-print">3D Print</option>
-                <option value="apparel">Apparel</option>
                 <option value="diy">DIY Crafts</option>
-                <option value="print">Print Products</option>
                 <option value="junkyard">Junkyard</option>
               </select>
             </div>

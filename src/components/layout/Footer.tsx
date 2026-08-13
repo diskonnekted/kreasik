@@ -5,7 +5,6 @@ const footerLinks = {
   shop: [
     { label: 'Semua Produk', href: '/products' },
     { label: '3D Print', href: '/products?category=3d-print' },
-    { label: 'Apparel', href: '/products?category=apparel' },
     { label: 'DIY Crafts', href: '/products?category=diy' },
     { label: 'Gift Card', href: '/gift-card' },
   ],

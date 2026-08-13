@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Box, Shirt, Wrench, Gem, ArrowRight } from 'lucide-react'
+import { Box, Wrench, Gem, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 const categories = [
@@ -14,16 +14,6 @@ const categories = [
     iconBg: 'bg-primary/10',
     iconColor: 'text-primary',
     href: '/products?category=3d-print',
-  },
-  {
-    name: 'Apparel',
-    description: 'Kaos custom & fashion kreatif',
-    icon: Shirt,
-    gradient: 'from-accent/10 to-blue-300/10',
-    hoverGradient: 'from-accent/20 to-blue-300/20',
-    iconBg: 'bg-accent/10',
-    iconColor: 'text-accent',
-    href: '/products?category=apparel',
   },
   {
     name: 'DIY Crafts',
@@ -91,7 +81,7 @@ export default function Categories() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto"
         >
           {categories.map((cat) => {
             const Icon = cat.icon
@@ -105,7 +95,8 @@ export default function Categories() {
                   <div
                     className={`relative p-8 rounded-2xl bg-gradient-to-br ${cat.gradient} 
                     hover:${cat.hoverGradient} transition-all duration-300 
-                    border border-transparent hover:border-primary/20 h-full`}
+                    border border-transparent hover:border-primary/20 h-full
+                    flex flex-col items-center text-center`}
                   >
                     <div className={`${cat.iconBg} w-16 h-16 rounded-xl flex items-center justify-center mb-6
                       group-hover:scale-110 transition-transform duration-300`}>
@@ -114,7 +105,7 @@ export default function Categories() {
                     <h3 className="font-heading font-semibold text-heading-md mb-2 group-hover:text-primary transition-colors">
                       {cat.name}
                     </h3>
-                    <p className="text-body-sm text-foreground/60 mb-4">
+                    <p className="text-body-sm text-foreground/60 mb-4 max-w-xs">
                       {cat.description}
                     </p>
                     <span className="inline-flex items-center gap-1 text-accent font-heading font-semibold text-body-sm

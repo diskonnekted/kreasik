@@ -54,9 +54,7 @@ export const productSchema = {
       options: {
         list: [
           { title: '3D Print', value: '3d-print' },
-          { title: 'Apparel', value: 'apparel' },
           { title: 'DIY Crafts', value: 'diy' },
-          { title: 'Print Products', value: 'print' },
           { title: 'Junkyard', value: 'junkyard' },
         ],
       },
