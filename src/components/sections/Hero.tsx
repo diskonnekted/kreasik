@@ -76,8 +76,8 @@ export default function Hero() {
               viewport={{ once: true, margin: '-100px' }}
               className="font-heading font-bold text-heading-xl md:text-[56px] lg:text-heading-xl leading-tight md:leading-tight text-foreground mb-6"
             >
-              Menerima Pesanan{' '}
-              <span className="text-gradient">Apa Saja</span>
+              Pesan Apa Saja;{' '}
+              <span className="text-gradient">Bisa!</span>
             </motion.h1>
 
             <motion.p
